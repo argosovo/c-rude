@@ -65,21 +65,25 @@ def vyber_nadavky() -> str:
 
 
 def bash_selhal(resp) -> bool:
-    """Heuristika: poznat neúspěšný Bash i v PostToolUse (bez exit kódu)."""
+    """Heuristika pro PostToolUse (příkaz s nenulovým exit kódem chodí přes
+    PostToolUseFailure, sem se dostanou hlavně úspěšné příkazy).
+
+    Hlídá jen přerušení a stderr. Stdout se záměrně ignoruje – obsahuje
+    nápovědy, obsah souborů, grep, git log atd., kde slova jako „failed“
+    nebo „exit code“ nic neznamenají (viz tests/test_nadavej.py).
+    """
     if not isinstance(resp, dict):
         return False
     if resp.get("interrupted"):
         return True
-    text = " ".join(
-        str(resp.get(k, "")) for k in ("stderr", "stdout")
-    ).lower()
+    stderr = str(resp.get("stderr", "")).lower()
     signaly = (
         "command not found", "no such file", "permission denied", "traceback",
-        "error:", "fatal:", "syntax error", "exit code", "failed", "npm err!",
-        "panic:", "segmentation fault", "cannot find module", "modulenotfounderror",
-        "assertionerror", "tests failed", "failing", "✗", "exception",
+        "fatal:", "syntax error", "npm err!", "panic:", "segmentation fault",
+        "cannot find module", "modulenotfounderror", "assertionerror",
+        "tests failed",
     )
-    return any(s in text for s in signaly)
+    return any(s in stderr for s in signaly)
 
 
 def main() -> int:

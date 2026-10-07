@@ -1,6 +1,6 @@
 {
   "name": "c-rude",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Claude, rude. Když Claude něco pokazí, začne česky nadávat. Kurva, píča, ty vole... Čistě vtípek.",
   "author": { "name": "Martin Švanda", "url": "https://github.com/argosovo" }
 }

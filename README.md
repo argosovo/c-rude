@@ -50,8 +50,9 @@ claude plugin marketplace remove c-rude
 
 - `SessionStart` hook pošle Claudovi pravidlo: „při chybě nejdřív zanadávej, pak oprav“.
 - `PostToolUseFailure` hook při každém selhaném tool callu přihodí náhodnou nadávku.
-- `PostToolUse` hook pro `Bash` hlídá výstup příkazu (traceback, `command not found`,
-  `failed`…) a když to smrdí, taky přihodí nadávku.
+- `PostToolUse` hook pro `Bash` hlídá přerušení a stderr příkazu (traceback,
+  `command not found`, `fatal:`…) a když to smrdí, taky přihodí nadávku. Stdout
+  se ignoruje, aby hook nenadával na nápovědu nebo obsah souborů se slovem „failed“.
 
 Základní slovník je v `scripts/nadavej.py` v seznamu `NADAVKY`, rozšířený (500+)
 v `scripts/nadavky.py` v seznamu `NADAVKY_EXTRA` – klidně si ho rozšiř.
