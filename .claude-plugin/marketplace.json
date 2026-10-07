@@ -1,0 +1,11 @@
+{
+  "name": "c-rude",
+  "owner": { "name": "Martin Švanda", "url": "https://github.com/argosovo" },
+  "plugins": [
+    {
+      "name": "c-rude",
+      "source": "./",
+      "description": "Claude, rude. Když Claude něco pokazí, začne česky nadávat."
+    }
+  ]
+}
